@@ -1018,13 +1018,24 @@ ad v = p2 . cataExpAr (ad_gen v)
 Definir:
 
 \begin{code}
-outExpAr = undefined 
+outExpAr X = i1()
+outExpAr (N a) = i2(i1 a)
+outExpAr (Bin a b c) = i2(i2(i1(a,(b,c))))
+outExpAr (Un a b) = i2(i2(i2(a,b)))
 ---
-recExpAr = undefined
+recExpAr f = id -|- (id -|- (id >< (f >< f) -|- id >< f))
 ---
-g_eval_exp = undefined
+g_eval_exp a (Left()) = a 
+g_eval_exp a (Right (Left n)) = n 
+g_eval_exp a (Right (Right (Left (op, (b,c))))) = case op of 
+                                                            Sum -> b+c
+                                                            Product -> b*c
+g_eval_exp a (Right (Right (Right (op,b)))) = case op of 
+                                                      Negate -> -b
+                                                      E -> expd(b)
 ---
-clean = undefined
+clean (Right (Right (Left (op, (b,c))))) = case op of
+                                                    Prod -> if(b == 0 || c == 0) then 0
 ---
 gopt = undefined 
 \end{code}

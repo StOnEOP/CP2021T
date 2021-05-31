@@ -127,15 +127,15 @@
 
 \begin{center}\large
 \begin{tabular}{ll}
-\textbf{Grupo} nr. & 999 (preencher)
+\textbf{Grupo} nr. & 120
 \\\hline
-a11111 & Nome1 (preencher)	
+a72620 & Mário Jorge Dias Real
 \\
-a22222 & Nome2 (preencher)	
+a82263 & Moisés Araújo Antunes
 \\
-a33333 & Nome3 (preencher)	
+a87958 & André Filipe Gomes Silva
 \\
-a44444 & Nome4 (preencher, se aplicável, ou apagar)	
+a87972 & João Miguel Pinto Nunes
 \end{tabular}
 \end{center}
 
@@ -1020,42 +1020,93 @@ Definir:
 \begin{code}
 outExpAr X = i1()
 outExpAr (N a) = i2(i1 a)
-outExpAr (Bin a b c) = i2(i2(i1(a,(b,c))))
-outExpAr (Un a b) = i2(i2(i2(a,b)))
+outExpAr (Bin a b c) = i2(i2(i1(a, (b, c))))
+outExpAr (Un a b) = i2(i2(i2(a, b)))
 ---
 recExpAr f = id -|- (id -|- (id >< (f >< f) -|- id >< f))
 ---
 g_eval_exp a (Left()) = a 
 g_eval_exp a (Right (Left n)) = n 
-g_eval_exp a (Right (Right (Left (op, (b,c))))) = case op of 
-                                                            Sum -> b+c
-                                                            Product -> b*c
-g_eval_exp a (Right (Right (Right (op,b)))) = case op of 
-                                                      Negate -> -b
-                                                      E -> expd(b)
+g_eval_exp a (Right (Right (Left (op, (b, c))))) = case op of 
+                                                            Sum     -> b + c
+                                                            Product -> b * c
+g_eval_exp a (Right (Right (Right (op, b)))) = case op of 
+                                                      Negate  -> -b
+                                                      E       -> expd(b)
 ---
-clean (Right (Right (Left (op, (b,c))))) = case op of
-                                                    Prod -> if(b == 0 || c == 0) then 0
+clean X = i1()
+clean (N a) = i2(i1 a)
+-- Soma
+clean (Bin Sum (N 0) c) = clean c
+clean (Bin Sum b (N 0)) = clean b
+clean (Bin Sum b c) = i2(i2(i1(Sum, (b, c))))
+-- Produto
+clean (Bin Product (N 1) c) = clean c
+clean (Bin Product b (N 1)) = clean b
+clean (Bin Product (N 0) c) = i2(i1 0)
+clean (Bin Product b (N 0)) = i2(i1 0)
+clean (Bin Product b c) = i2(i2(i1(Product, (b, c))))
+-- Negação
+clean (Un Negate b) = i2(i2(i2(Negate, b)))
+-- Expoente
+clean (Un E (N 0)) = i2(i1 1)
+clean (Un E b) = i2(i2(i2(E, b)))
 ---
-gopt = undefined 
+gopt a = g_eval_exp a
 \end{code}
 
 \begin{code}
 sd_gen :: Floating a =>
     Either () (Either a (Either (BinOp, ((ExpAr a, ExpAr a), (ExpAr a, ExpAr a))) (UnOp, (ExpAr a, ExpAr a)))) -> (ExpAr a, ExpAr a)
-sd_gen = undefined
+sd_gen (Left ()) = (X, N 1)
+sd_gen (Right (Left n)) = (N n, N 0)
+sd_gen (Right (Right (Left (op, ((b1, b2), (c1, c2)))))) = case op of
+                                                                    Sum     -> (Bin Sum b1 c1, Bin Sum b2 c2)
+                                                                    Product -> (Bin Product b1 c1, Bin Sum (Bin Product b1 c2) (Bin Product b2 c1))
+sd_gen (Right (Right (Right (op, (b1, b2))))) = case op of 
+                                                    Negate  -> (Un Negate b1, Un Negate b2)
+                                                    E       -> (Un E b1, Bin Product (Un E b1) b2)
 \end{code}
 
 \begin{code}
-ad_gen = undefined
+ad_gen :: Floating a => a ->
+    Either () (Either a (Either (BinOp, ((ExpAr a, a), (ExpAr a, a))) (UnOp, (ExpAr a, a)))) -> (ExpAr a, a)
+ad_gen v (Left()) = (X, 1)
+ad_gen v (Right (Left n)) = (N n, 0)
+ad_gen v (Right (Right (Left (op, ((b1, b2), (c1, c2)))))) = case op of
+                                                                        Sum     -> (Bin Sum b1 c1, b2 + c2)
+                                                                        Product -> (Bin Product b1 c1, b2 * c2)
+ad_gen v (Right (Right (Right (op, (b1, b2))))) = case op of
+                                                            Negate  -> (Un Negate b1, -b2)
+                                                            E       -> (Un E b1, expd(b2))
 \end{code}
 
 \subsection*{Problema 2}
 Definir
 \begin{code}
-loop = undefined
-inic = undefined
-prj = undefined
+c 0 = 1
+c (n+1) = (c n) + (auxH n)
+
+--h 0 = 1
+--h (n+1) = ((2*(s n))`div`((s (n+1))*(s n))) * (h n)
+
+auxH 0 = 0
+auxH n = h (2*n+4,n+3,n+2)
+
+h (1,1,1) = 1
+--h (x+1,1,1) = (h (x,0,0)) * (p x)
+--h (x+1,y+1,1) = (h (x,y,0)) * ((p x)`div`(p y))
+h (x+1,y+1,z+1) = (h ((p x),(p y),(p z))) * ((p x)`div`((p y)*(p z)))
+
+p 0 = 1
+p n = n
+
+--s 0 = 2
+--s (n+1) = (s n) + 1
+
+loop (c,auxH,h,p) = (c + auxH, h, h * ((p)`div`(p*p)), p + 1)
+inic = (1,0,1,1)
+prj (c,auxH,h,p) = c
 \end{code}
 por forma a que
 \begin{code}

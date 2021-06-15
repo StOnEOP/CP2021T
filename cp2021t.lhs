@@ -1108,9 +1108,14 @@ calculaR a (Un op b) = case op of
 \end{code}
 
 \subsection*{Problema 2}
-- Através da fórmula da série de Catalan foi possível deduzir uma fórmula recursiva (ver em baixo) que foi passada e simplificada em código para ser usada num ciclo.
+- Através da fórmula da série de Catalan foi possível deduzir uma fórmula recursiva (ver Eq1) que foi passada e simplificada em código para ser usada num ciclo.
 Percebemos também que o maior problema era conseguir realizar o fatorial para o numerador, pois o 'n' é multiplicado por 2.
-A solução que arranjámos foi calcular o fatorial para o número 'n' e 'n-1' na mesma divisão inteira.
+A solução que arranjámos foi calcular o fatorial para o número 'n' e 'n-1' na mesma divisão inteira. \\
+Eq1:
+\begin{eqnarray*}
+  C(n+1) = \frac{2(n+1) * ((2(n+1))-1)}{(n+2) (n+1)} * (C n)
+\end{eqnarray*}
+Solução:
 \begin{code}
 h 0 = 1
 h (n+1) = ((( 2 * (s n)) * ((2 * (s n)) - 1)) * (h n)) `div` ((p n) * (s n))

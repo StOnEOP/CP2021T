@@ -307,13 +307,13 @@
 \begin{tabular}{ll}
 \textbf{Grupo} nr. & 120
 \\\hline
-a72620 & Mário Jorge Dias Real
+72620 & Mário Jorge Dias Real
 \\
-a82263 & Moisés Araújo Antunes
+82263 & Moisés Araújo Antunes
 \\
-a87958 & André Filipe Gomes Silva
+87958 & André Filipe Gomes Silva
 \\
-a87972 & João Miguel Pinto Nunes
+87972 & João Miguel Pinto Nunes
 \end{tabular}
 \end{center}
 
@@ -1651,7 +1651,7 @@ Já para o anamorfismo \(clean\), aplicamos todas as regras possíveis de simpli
 \end{hscode}\resethooks
 
 \subsubsection*{4.}
-- Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da derivação para devolvermos a \(ExpAr\) derivada.
+- Para definirmos o gene do catamorfismo pedido, apenas utilizámos as regras da derivação para devolvermos a \(ExpAr\) derivada.
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{5}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1695,7 +1695,7 @@ Já para o anamorfismo \(clean\), aplicamos todas as regras possíveis de simpli
 \end{hscode}\resethooks
 
 \subsubsection*{5.}
-- Já para o gene do catamorfismo da função ad, utilizamos as regras de derivação tendo em atenção que no produto e no expoente, temos de calcular a derivada da
+- Já para o gene do catamorfismo da função \(ad\), utilizámos as regras de derivação tendo em atenção que no produto e no expoente, temos de calcular a derivada da
 \(ExpAr\) para pudermos realizar o cálculo final. Esse cálculo auxiliar é feito pela função \(calculaR\).
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1769,7 +1769,8 @@ Já para o anamorfismo \(clean\), aplicamos todas as regras possíveis de simpli
 \end{hscode}\resethooks
 
 \subsection*{Problema 2}
-- Através da fórmula da série de Catalan, percebemos que o maior problema era conseguir realizar o fatorial para o numerador, pois o 'n' é multiplicado por 2.
+- Através da fórmula da série de Catalan foi possível deduzir uma fórmula recursiva (ver em baixo) que foi passada e simplificada em código para ser usada num ciclo.
+Percebemos também que o maior problema era conseguir realizar o fatorial para o numerador, pois o 'n' é multiplicado por 2.
 A solução que arranjámos foi calcular o fatorial para o número 'n' e 'n-1' na mesma divisão inteira.
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1817,7 +1818,8 @@ seja a função pretendida.
 Apresentar de seguida a justificação da solução encontrada.
 
 \subsection*{Problema 3}
-
+\subsubsection*{1.}
+Pela função \(calcLine\) presente nos anexos, entendemos que para o caso da lista vazia temos de retornar \(const nil\), e para o caso da lista não ser vazia aplica-se a função dada \(g\).
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{4}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1827,8 +1829,33 @@ Apresentar de seguida a justificação da solução encontrada.
 \>[B]{}\Varid{calcLine}\mathrel{=}\Varid{cataList}\;\Varid{h}\;\mathbf{where}{}\<[E]%
 \\
 \>[B]{}\hsindent{4}{}\<[4]%
-\>[4]{}\Varid{h}\mathrel{=}\bot {}\<[E]%
-\\[\blanklineskip]%
+\>[4]{}\Varid{h}\mathrel{=}\alt{\underline{\underline{\Varid{nil}}}}{\Varid{g}}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{21}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{29}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{g}\mathbin{::}(\Q ,\Conid{NPoint}\to \Conid{OverTime}\;\Conid{NPoint})\to (\Conid{NPoint}\to \Conid{OverTime}\;\Conid{NPoint}){}\<[E]%
+\\
+\>[B]{}\Varid{g}\;(\Varid{d},\Varid{f})\;\Varid{l}\mathrel{=}\mathbf{case}\;\Varid{l}\;\mathbf{of}{}\<[E]%
+\\
+\>[B]{}\hsindent{21}{}\<[21]%
+\>[21]{}[\mskip1.5mu \mskip1.5mu]{}\<[29]%
+\>[29]{}\to \Varid{nil}{}\<[E]%
+\\
+\>[B]{}\hsindent{21}{}\<[21]%
+\>[21]{}(\Varid{x}\mathbin{:}\Varid{xs}){}\<[29]%
+\>[29]{}\to \lambda \Varid{z}\to \Varid{concat}\mathbin{\$}(\Varid{sequenceA}\;[\mskip1.5mu \Varid{singl}\comp \Varid{linear1d}\;\Varid{d}\;\Varid{x},\Varid{f}\;\Varid{xs}\mskip1.5mu])\;\Varid{z}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+\subsubsection*{2.}
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{4}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{deCasteljau}\mathbin{::}[\mskip1.5mu \Conid{NPoint}\mskip1.5mu]\to \Conid{OverTime}\;\Conid{NPoint}{}\<[E]%
 \\
 \>[B]{}\Varid{deCasteljau}\mathrel{=}\Varid{hyloAlgForm}\;\Varid{alg}\;\Varid{coalg}\;\mathbf{where}{}\<[E]%
@@ -1853,7 +1880,7 @@ Solução para listas não vazias:
 \ColumnHook
 \end{hscode}\resethooks
 Para este problema deduzimos através de várias leis do formulário, de salientar a utilização da lei da recursividade, o gene do \(avg\) que juntamente com o
-gene do \(length\) permitiu-nos descobrir o \(avgAUX\). Utilizámos uma função auxiliar para realizar a divisão inteira.
+gene do \(length\) permitiu-nos descobrir o \(avgAUX\). Utilizámos uma função auxiliar para realizar a divisão inteira e a adição.
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%

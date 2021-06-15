@@ -129,13 +129,13 @@
 \begin{tabular}{ll}
 \textbf{Grupo} nr. & 120
 \\\hline
-a72620 & Mário Jorge Dias Real
+72620 & Mário Jorge Dias Real
 \\
-a82263 & Moisés Araújo Antunes
+82263 & Moisés Araújo Antunes
 \\
-a87958 & André Filipe Gomes Silva
+87958 & André Filipe Gomes Silva
 \\
-a87972 & João Miguel Pinto Nunes
+87972 & João Miguel Pinto Nunes
 \end{tabular}
 \end{center}
 
@@ -1065,7 +1065,7 @@ gopt a = g_eval_exp a
 \end{code}
 
 \subsubsection*{4.}
-- Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da derivação para devolvermos a \(ExpAr\) derivada.
+- Para definirmos o gene do catamorfismo pedido, apenas utilizámos as regras da derivação para devolvermos a \(ExpAr\) derivada.
 \begin{code}
 sd_gen :: Floating a =>
     Either () (Either a (Either (BinOp, ((ExpAr a, ExpAr a), (ExpAr a, ExpAr a))) (UnOp, (ExpAr a, ExpAr a))))
@@ -1081,7 +1081,7 @@ sd_gen (Right (Right (Right (op, (b1, b2))))) = case op of
 \end{code}
 
 \subsubsection*{5.}
-- Já para o gene do catamorfismo da função ad, utilizamos as regras de derivação tendo em atenção que no produto e no expoente, temos de calcular a derivada da
+- Já para o gene do catamorfismo da função \(ad\), utilizámos as regras de derivação tendo em atenção que no produto e no expoente, temos de calcular a derivada da
 \(ExpAr\) para pudermos realizar o cálculo final. Esse cálculo auxiliar é feito pela função \(calculaR\).
 \begin{code}
 ad_gen :: Floating a => a ->
@@ -1108,7 +1108,8 @@ calculaR a (Un op b) = case op of
 \end{code}
 
 \subsection*{Problema 2}
-- Através da fórmula da série de Catalan, percebemos que o maior problema era conseguir realizar o fatorial para o numerador, pois o 'n' é multiplicado por 2.
+- Através da fórmula da série de Catalan foi possível deduzir uma fórmula recursiva (ver em baixo) que foi passada e simplificada em código para ser usada num ciclo.
+Percebemos também que o maior problema era conseguir realizar o fatorial para o numerador, pois o 'n' é multiplicado por 2.
 A solução que arranjámos foi calcular o fatorial para o número 'n' e 'n-1' na mesma divisão inteira.
 \begin{code}
 h 0 = 1
@@ -1136,12 +1137,22 @@ seja a função pretendida.
 Apresentar de seguida a justificação da solução encontrada.
 
 \subsection*{Problema 3}
-
+\subsubsection*{1.}
+Pela função \(calcLine\) presente nos anexos, entendemos que para o caso da lista vazia temos de retornar \(const nil\), e para o caso da lista não ser vazia aplica-se a função dada \(g\).
 \begin{code}
 calcLine :: NPoint -> (NPoint -> OverTime NPoint)
 calcLine = cataList h where
-   h = undefined
+   h = either (const (const nil)) g
+\end{code}
+\begin{code}
+g :: (Rational, NPoint -> OverTime NPoint) -> (NPoint -> OverTime NPoint)
+g (d, f) l = case l of
+                    []      -> nil
+                    (x:xs)  -> \z -> concat $ (sequenceA [singl . linear1d d x, f xs]) z
+\end{code}
 
+\subsubsection*{2.}
+\begin{code}
 deCasteljau :: [NPoint] -> OverTime NPoint
 deCasteljau = hyloAlgForm alg coalg where
    coalg = undefined
@@ -1157,7 +1168,7 @@ Solução para listas não vazias:
 avg = p1.avgAUX
 \end{code}
 Para este problema deduzimos através de várias leis do formulário, de salientar a utilização da lei da recursividade, o gene do \(avg\) que juntamente com o
-gene do \(length\) permitiu-nos descobrir o \(avgAUX\). Utilizámos uma função auxiliar para realizar a divisão inteira.
+gene do \(length\) permitiu-nos descobrir o \(avgAUX\). Utilizámos uma função auxiliar para realizar a divisão inteira e a adição.
 \begin{code}
 avgB = cataList (either (split (split (const 0) (const 0)) (const 0)) (split (split (addA . (id >< (p1 . p1))) (succ . p2 . p1 . p2)) (succ . p2 . p2)))
 divI (a, b) = a / b

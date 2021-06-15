@@ -702,7 +702,7 @@ Verifique as suas funções testando a propriedade seguinte:
 A média de uma lista não vazia e de uma \LTree\ com os mesmos elementos coincide,
 a menos de um erro de 0.1 milésimas:
 \begin{code}
---prop_avg :: Ord a => [a] -> Property
+prop_avg :: [Double] -> Property
 prop_avg = nonempty .==>. diff .<=. const 0.000001 where
    diff l = avg l - (avgLTree . genLTree) l
    genLTree = anaLTree lsplit
@@ -1016,32 +1016,21 @@ ad :: Floating a => a -> ExpAr a -> a
 ad v = p2 . cataExpAr (ad_gen v)
 \end{code}
 Definir:
----
-
 \subsubsection*{1.}
-Para obtermos o \(outExpAr\), partimos da expressão \(outExpAr \cdot inExpAr = id\) e com a ajuda das leis disponíveis no formulário chegamos rapidamente à solução.
+- Para obtermos o \(outExpAr\), partimos da expressão \(outExpAr \cdot inExpAr = id\) e com a ajuda das leis disponíveis no formulário chegámos rapidamente à solução.
 \begin{code}
 outExpAr X = i1()
 outExpAr (N a) = i2(i1 a)
 outExpAr (Bin a b c) = i2(i2(i1(a, (b, c))))
 outExpAr (Un a b) = i2(i2(i2(a, b)))
 \end{code}
-\begin{eqnarray*}
-  \xymatrix@@C=2cm {
-    |ExpAr| \ar@/_1pc/[r]_-{outExpAr}
-    &|X + (N + (BinOp \times (ExpAr \times ExpAr) + UnOp \times ExpAr))| \ar@/_1pc/[l]_-{inExpAr}
-  }
-\end{eqnarray*}
---
-Já para o \(recExpAr\), guiamos-nos pela expressão dada no enunciado, \(baseExpAr\).
-
+- Já para o \(recExpAr\), guiamo-nos pela expressão dada no enunciado, \(baseExpAr\).
 \begin{code}
 recExpAr f = id -|- (id -|- (id >< (f >< f) -|- id >< f))
 \end{code}
----
 
 \subsubsection*{2.}
-Para definirmos o gene do catamorfismo, detetamos qual a \(ExpAr\) dada e calculamos o resultado.
+- Para definirmos o gene do catamorfismo, detetámos qual a \(ExpAr\) dada e calculámos o resultado.
 \begin{code}
 g_eval_exp a (Left()) = a 
 g_eval_exp a (Right (Left n)) = n 
@@ -1052,48 +1041,35 @@ g_eval_exp a (Right (Right (Right (op, b)))) = case op of
                                                       Negate  -> -b
                                                       E       -> expd(b)
 \end{code}
-\begin{eqnarray*}
-\xymatrix@@C=2cm{
-    |ExpAr|  \ar[d]_-{| = evalExp = cataNat g_eval_exp|} \ar[r]^-{|outExpAr|}
-    &|X + (N + (BinOp \times (ExpAr \times ExpAr) + UnOp \times ExpAr))| 
-        \ar[d]^{|id + (id + (id \times (cataNat g_eval_exp \times cataNat g_eval_exp) + id \times cataNat g_eval_exp))|}   \\
-    |A|
-    &|X + (N + (BinOp \times (A \times A) + UnOp \times A))|   \ar[l]^-{|g_eval_exp|}
-}
-\end{eqnarray*}
----
 
 \subsubsection*{3.}
-O \(gopt\) é definido como um catamorfismo com o objetivo de apenas calcular o resultado, utilizamos então o gene do catamorfismo da alínea anterior.
+- O \(gopt\) é definido como um catamorfismo com o objetivo de apenas calcular o resultado, utilizamos então o gene do catamorfismo da alínea anterior.
 Já para o anamorfismo \(clean\), aplicamos todas as regras possíveis de simplificação de expressões aritméticas (elementos absorventes e neutros).
 \begin{code}
 clean X = i1()
 clean (N a) = i2(i1 a)
--- Soma
 clean (Bin Sum (N 0) c) = clean c
 clean (Bin Sum b (N 0)) = clean b
 clean (Bin Sum b c) = i2(i2(i1(Sum, (b, c))))
--- Produto
 clean (Bin Product (N 1) c) = clean c
 clean (Bin Product b (N 1)) = clean b
 clean (Bin Product (N 0) c) = i2(i1 0)
 clean (Bin Product b (N 0)) = i2(i1 0)
 clean (Bin Product b c) = i2(i2(i1(Product, (b, c))))
--- Negação
 clean (Un Negate b) = i2(i2(i2(Negate, b)))
--- Expoente
 clean (Un E (N 0)) = i2(i1 1)
 clean (Un E b) = i2(i2(i2(E, b)))
---
+\end{code}
+\begin{code}
 gopt a = g_eval_exp a
 \end{code}
----
 
 \subsubsection*{4.}
-Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da derivação para devolvermos a \(ExpAr\) derivada.
+- Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da derivação para devolvermos a \(ExpAr\) derivada.
 \begin{code}
 sd_gen :: Floating a =>
-    Either () (Either a (Either (BinOp, ((ExpAr a, ExpAr a), (ExpAr a, ExpAr a))) (UnOp, (ExpAr a, ExpAr a)))) -> (ExpAr a, ExpAr a)
+    Either () (Either a (Either (BinOp, ((ExpAr a, ExpAr a), (ExpAr a, ExpAr a))) (UnOp, (ExpAr a, ExpAr a))))
+     -> (ExpAr a, ExpAr a)
 sd_gen (Left ()) = (X, N 1)
 sd_gen (Right (Left n)) = (N n, N 0)
 sd_gen (Right (Right (Left (op, ((b1, b2), (c1, c2)))))) = case op of
@@ -1103,10 +1079,9 @@ sd_gen (Right (Right (Right (op, (b1, b2))))) = case op of
                                                     Negate  -> (Un Negate b1, Un Negate b2)
                                                     E       -> (Un E b1, Bin Product (Un E b1) b2)
 \end{code}
----
 
 \subsubsection*{5.}
-Já para o gene do catamorfismo da função ad, utilizamos as regras de derivação tendo em atenção que no produto e no expoente, temos de calcular a derivada da
+- Já para o gene do catamorfismo da função ad, utilizamos as regras de derivação tendo em atenção que no produto e no expoente, temos de calcular a derivada da
 \(ExpAr\) para pudermos realizar o cálculo final. Esse cálculo auxiliar é feito pela função \(calculaR\).
 \begin{code}
 ad_gen :: Floating a => a ->
@@ -1119,7 +1094,8 @@ ad_gen a (Right (Right (Left (op, ((b1, b2), (c1, c2)))))) = case op of
 ad_gen a (Right (Right (Right (op, (b1, b2))))) = case op of
                                                             Negate  -> (Un Negate b1, -b2)
                                                             E       -> (Un E b1, expd(calculaR a b1) * b2)
-
+\end{code}
+\begin{code}
 calculaR :: Floating a => a -> ExpAr a -> a
 calculaR a X = a
 calculaR a (N b) = b
@@ -1132,18 +1108,21 @@ calculaR a (Un op b) = case op of
 \end{code}
 
 \subsection*{Problema 2}
-Através da fórmula da série de Catalan, percebemos que o maior problema era conseguir realizar o fatorial para o numerador, pois o 'n' é multiplicado por 2.
-A solução que arranjamos foi calcular o fatorial para o número 'n' e 'n-1' na mesma divisão inteira.
+- Através da fórmula da série de Catalan, percebemos que o maior problema era conseguir realizar o fatorial para o numerador, pois o 'n' é multiplicado por 2.
+A solução que arranjámos foi calcular o fatorial para o número 'n' e 'n-1' na mesma divisão inteira.
 \begin{code}
 h 0 = 1
 h (n+1) = ((( 2 * (s n)) * ((2 * (s n)) - 1)) * (h n)) `div` ((p n) * (s n))
-
+\end{code}
+\begin{code}
 s 0 = 1
 s (n+1) = (s n) + 1
-
+\end{code}
+\begin{code}
 p 0 = 2
 p (n+1) = (p n) + 1
-
+\end{code}
+\begin{code}
 loop (h,s,p) = ((((2 * s) * ((2 * s)-1)) * h) `div` (p * s), s + 1, p + 1)
 inic = (1,1,2)
 prj (h,s,p) = h
@@ -1178,11 +1157,13 @@ Solução para listas não vazias:
 avg = p1.avgAUX
 \end{code}
 Para este problema deduzimos através de várias leis do formulário, de salientar a utilização da lei da recursividade, o gene do \(avg\) que juntamente com o
-gene do \(length\) permitiu-nos descobrir o \(avgAUX\). Utilizamos uma função auxiliar para realizar a divisão inteira.
+gene do \(length\) permitiu-nos descobrir o \(avgAUX\). Utilizámos uma função auxiliar para realizar a divisão inteira.
 \begin{code}
-avgB = cataList (either (split (split zero zero) zero) (split (split (add . (id >< (p1 . p1))) (succ . p2 . p1 . p2)) (succ . p2 . p2)))
-divI (a, b) = (fromIntegral a) / (fromIntegral b)
-
+avgB = cataList (either (split (split (const 0) (const 0)) (const 0)) (split (split (addA . (id >< (p1 . p1))) (succ . p2 . p1 . p2)) (succ . p2 . p2)))
+divI (a, b) = a / b
+addA (a, b) = a + b
+\end{code}
+\begin{code}
 avgAUX = (divI >< id) . avgB
 \end{code}
 \subsubsection*{2.}

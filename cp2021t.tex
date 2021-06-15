@@ -1042,7 +1042,7 @@ a menos de um erro de 0.1 milésimas:
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{4}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\mbox{\onelinecomment prop_avg :: Ord a => [a] -> Property}{}\<[E]%
+\>[B]{}\Varid{prop\char95 avg}\mathbin{::}[\mskip1.5mu \Conid{Double}\mskip1.5mu]\to \Conid{Property}{}\<[E]%
 \\
 \>[B]{}\Varid{prop\char95 avg}\mathrel{=}\Varid{nonempty}\Rightarrow\Varid{diff}\leq\underline{\mathrm{0.000001}}\;\mathbf{where}{}\<[E]%
 \\
@@ -1554,10 +1554,8 @@ São dadas:
 \ColumnHook
 \end{hscode}\resethooks
 Definir:
----
-
 \subsubsection*{1.}
-Para obtermos o \(outExpAr\), partimos da expressão \(outExpAr \cdot inExpAr = id\) e com a ajuda das leis disponíveis no formulário chegamos rapidamente à solução.
+- Para obtermos o \(outExpAr\), partimos da expressão \(outExpAr \cdot inExpAr = id\) e com a ajuda das leis disponíveis no formulário chegámos rapidamente à solução.
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1570,24 +1568,16 @@ Para obtermos o \(outExpAr\), partimos da expressão \(outExpAr \cdot inExpAr = 
 \>[B]{}\Varid{outExpAr}\;(\Conid{Un}\;\Varid{a}\;\Varid{b})\mathrel{=}i_2\;(i_2\;(i_2\;(\Varid{a},\Varid{b}))){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
-\begin{eqnarray*}
-  \xymatrix@C=2cm {
-    \ensuremath{\Conid{ExpAr}} \ar\text{\ttfamily \char47{}\char95{}1pc\char47{}\char91{}r\char93{}\char95{}\char45{}\char123{}outExpAr\char125{}~~~~~\char38{}\char124{}X~\char43{}~\char40{}N~\char43{}~\char40{}BinOp~\char92{}times~\char40{}ExpAr~\char92{}times~ExpAr\char41{}~\char43{}~UnOp~\char92{}times~ExpAr\char41{}\char41{}\char124{}~\char92{}ar}/_1pc/[l]_-{inExpAr}
-  }
-\end{eqnarray*}
---
-Já para o \(recExpAr\), guiamos-nos pela expressão dada no enunciado, \(baseExpAr\).
-
+- Já para o \(recExpAr\), guiamo-nos pela expressão dada no enunciado, \(baseExpAr\).
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{recExpAr}\;\Varid{f}\mathrel{=}\Varid{id}+(\Varid{id}+(\Varid{id}\times(\Varid{f}\times\Varid{f})+\Varid{id}\times\Varid{f})){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
----
 
 \subsubsection*{2.}
-Para definirmos o gene do catamorfismo, detetamos qual a \(ExpAr\) dada e calculamos o resultado.
+- Para definirmos o gene do catamorfismo, detetámos qual a \(ExpAr\) dada e calculámos o resultado.
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{55}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1619,19 +1609,9 @@ Para definirmos o gene do catamorfismo, detetamos qual a \(ExpAr\) dada e calcul
 \>[63]{}\to \Varid{expd}\;(\Varid{b}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
-\begin{eqnarray*}
-\xymatrix@C=2cm{
-    \ensuremath{\Conid{ExpAr}}  \ar[d]_-{\ensuremath{\mathrel{=}\Varid{evalExp}\mathrel{=}\cata{\Varid{g\char95 eval\char95 exp}}}} \ar[r]^-{\ensuremath{\Varid{outExpAr}}}
-    &\ensuremath{\Conid{X}\mathbin{+}(\Conid{N}\mathbin{+}(\Conid{BinOp}\lambda \Varid{times}\;(\Conid{ExpAr}\lambda \Varid{times}\;\Conid{ExpAr})\mathbin{+}\Conid{UnOp}\lambda \Varid{times}\;\Conid{ExpAr}))} 
-        \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}(\Varid{id}\mathbin{+}(\Varid{id}\lambda \Varid{times}\;(\cata{\Varid{g\char95 eval\char95 exp}}\lambda \Varid{times}\;\cata{\cdot }\;\Varid{g\char95 eval\char95 exp})\mathbin{+}\Varid{id}\lambda \Varid{times}\;\cata{\cdot }\;\Varid{g\char95 eval\char95 exp}))}}   \\
-    \ensuremath{\Conid{A}}
-    &\ensuremath{\Conid{X}\mathbin{+}(\Conid{N}\mathbin{+}(\Conid{BinOp}\lambda \Varid{times}\;(\Conid{A}\lambda \Varid{times}\;\Conid{A})\mathbin{+}\Conid{UnOp}\lambda \Varid{times}\;\Conid{A}))}   \ar[l]^-{\ensuremath{\Varid{g\char95 eval\char95 exp}}}
-}
-\end{eqnarray*}
----
 
 \subsubsection*{3.}
-O \(gopt\) é definido como um catamorfismo com o objetivo de apenas calcular o resultado, utilizamos então o gene do catamorfismo da alínea anterior.
+- O \(gopt\) é definido como um catamorfismo com o objetivo de apenas calcular o resultado, utilizamos então o gene do catamorfismo da alínea anterior.
 Já para o anamorfismo \(clean\), aplicamos todas as regras possíveis de simplificação de expressões aritméticas (elementos absorventes e neutros).
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1640,15 +1620,11 @@ Já para o anamorfismo \(clean\), aplicamos todas as regras possíveis de simpli
 \\
 \>[B]{}\Varid{clean}\;(\Conid{N}\;\Varid{a})\mathrel{=}i_2\;(i_1\;\Varid{a}){}\<[E]%
 \\
-\>[B]{}\mbox{\onelinecomment  Soma}{}\<[E]%
-\\
 \>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Sum}\;(\Conid{N}\;\mathrm{0})\;\Varid{c})\mathrel{=}\Varid{clean}\;\Varid{c}{}\<[E]%
 \\
 \>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Sum}\;\Varid{b}\;(\Conid{N}\;\mathrm{0}))\mathrel{=}\Varid{clean}\;\Varid{b}{}\<[E]%
 \\
 \>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Sum}\;\Varid{b}\;\Varid{c})\mathrel{=}i_2\;(i_2\;(i_1\;(\Conid{Sum},(\Varid{b},\Varid{c})))){}\<[E]%
-\\
-\>[B]{}\mbox{\onelinecomment  Produto}{}\<[E]%
 \\
 \>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Product}\;(\Conid{N}\;\mathrm{1})\;\Varid{c})\mathrel{=}\Varid{clean}\;\Varid{c}{}\<[E]%
 \\
@@ -1660,28 +1636,26 @@ Já para o anamorfismo \(clean\), aplicamos todas as regras possíveis de simpli
 \\
 \>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Product}\;\Varid{b}\;\Varid{c})\mathrel{=}i_2\;(i_2\;(i_1\;(\Conid{Product},(\Varid{b},\Varid{c})))){}\<[E]%
 \\
-\>[B]{}\mbox{\onelinecomment  Negação}{}\<[E]%
-\\
 \>[B]{}\Varid{clean}\;(\Conid{Un}\;\Conid{Negate}\;\Varid{b})\mathrel{=}i_2\;(i_2\;(i_2\;(\Conid{Negate},\Varid{b}))){}\<[E]%
-\\
-\>[B]{}\mbox{\onelinecomment  Expoente}{}\<[E]%
 \\
 \>[B]{}\Varid{clean}\;(\Conid{Un}\;\Conid{E}\;(\Conid{N}\;\mathrm{0}))\mathrel{=}i_2\;(i_1\;\mathrm{1}){}\<[E]%
 \\
 \>[B]{}\Varid{clean}\;(\Conid{Un}\;\Conid{E}\;\Varid{b})\mathrel{=}i_2\;(i_2\;(i_2\;(\Conid{E},\Varid{b}))){}\<[E]%
-\\
-\>[B]{}\mbox{\onelinecomment }{}\<[E]%
-\\
+\ColumnHook
+\end{hscode}\resethooks
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{gopt}\;\Varid{a}\mathrel{=}\Varid{g\char95 eval\char95 exp}\;\Varid{a}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
----
 
 \subsubsection*{4.}
-Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da derivação para devolvermos a \(ExpAr\) derivada.
+- Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da derivação para devolvermos a \(ExpAr\) derivada.
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{5}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{6}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{53}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{61}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{69}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1690,7 +1664,10 @@ Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da de
 \>[B]{}\Varid{sd\char95 gen}\mathbin{::}\Conid{Floating}\;\Varid{a}\Rightarrow {}\<[E]%
 \\
 \>[B]{}\hsindent{5}{}\<[5]%
-\>[5]{}()+(\Varid{a}+((\Conid{BinOp},((\Conid{ExpAr}\;\Varid{a},\Conid{ExpAr}\;\Varid{a}),(\Conid{ExpAr}\;\Varid{a},\Conid{ExpAr}\;\Varid{a})))+(\Conid{UnOp},(\Conid{ExpAr}\;\Varid{a},\Conid{ExpAr}\;\Varid{a}))))\to (\Conid{ExpAr}\;\Varid{a},\Conid{ExpAr}\;\Varid{a}){}\<[E]%
+\>[5]{}()+(\Varid{a}+((\Conid{BinOp},((\Conid{ExpAr}\;\Varid{a},\Conid{ExpAr}\;\Varid{a}),(\Conid{ExpAr}\;\Varid{a},\Conid{ExpAr}\;\Varid{a})))+(\Conid{UnOp},(\Conid{ExpAr}\;\Varid{a},\Conid{ExpAr}\;\Varid{a})))){}\<[E]%
+\\
+\>[5]{}\hsindent{1}{}\<[6]%
+\>[6]{}\to (\Conid{ExpAr}\;\Varid{a},\Conid{ExpAr}\;\Varid{a}){}\<[E]%
 \\
 \>[B]{}\Varid{sd\char95 gen}\;(i_1\;())\mathrel{=}(\Conid{X},\Conid{N}\;\mathrm{1}){}\<[E]%
 \\
@@ -1716,18 +1693,13 @@ Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da de
 \>[61]{}\to (\Conid{Un}\;\Conid{E}\;\Varid{b1},\Conid{Bin}\;\Conid{Product}\;(\Conid{Un}\;\Conid{E}\;\Varid{b1})\;\Varid{b2}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
----
 
 \subsubsection*{5.}
-Já para o gene do catamorfismo da função ad, utilizamos as regras de derivação tendo em atenção que no produto e no expoente, temos de calcular a derivada da
+- Já para o gene do catamorfismo da função ad, utilizamos as regras de derivação tendo em atenção que no produto e no expoente, temos de calcular a derivada da
 \(ExpAr\) para pudermos realizar o cálculo final. Esse cálculo auxiliar é feito pela função \(calculaR\).
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{5}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{35}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{37}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{43}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{45}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{61}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{69}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{73}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1760,7 +1732,15 @@ Já para o gene do catamorfismo da função ad, utilizamos as regras de derivaç
 \>[B]{}\hsindent{61}{}\<[61]%
 \>[61]{}\Conid{E}{}\<[69]%
 \>[69]{}\to (\Conid{Un}\;\Conid{E}\;\Varid{b1},\Varid{expd}\;(\Varid{calculaR}\;\Varid{a}\;\Varid{b1})\mathbin{*}\Varid{b2}){}\<[E]%
-\\[\blanklineskip]%
+\ColumnHook
+\end{hscode}\resethooks
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{35}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{37}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{43}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{45}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{calculaR}\mathbin{::}\Conid{Floating}\;\Varid{a}\Rightarrow \Varid{a}\to \Conid{ExpAr}\;\Varid{a}\to \Varid{a}{}\<[E]%
 \\
 \>[B]{}\Varid{calculaR}\;\Varid{a}\;\Conid{X}\mathrel{=}\Varid{a}{}\<[E]%
@@ -1789,23 +1769,35 @@ Já para o gene do catamorfismo da função ad, utilizamos as regras de derivaç
 \end{hscode}\resethooks
 
 \subsection*{Problema 2}
-Através da fórmula da série de Catalan, percebemos que o maior problema era conseguir realizar o fatorial para o numerador, pois o 'n' é multiplicado por 2.
-A solução que arranjamos foi calcular o fatorial para o número 'n' e 'n-1' na mesma divisão inteira.
+- Através da fórmula da série de Catalan, percebemos que o maior problema era conseguir realizar o fatorial para o numerador, pois o 'n' é multiplicado por 2.
+A solução que arranjámos foi calcular o fatorial para o número 'n' e 'n-1' na mesma divisão inteira.
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{h}\;\mathrm{0}\mathrel{=}\mathrm{1}{}\<[E]%
 \\
 \>[B]{}\Varid{h}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}(((\mathrm{2}\mathbin{*}(\Varid{s}\;\Varid{n}))\mathbin{*}((\mathrm{2}\mathbin{*}(\Varid{s}\;\Varid{n}))\mathbin{-}\mathrm{1}))\mathbin{*}(\Varid{h}\;\Varid{n}))\mathbin{\Varid{`div`}}((\Varid{p}\;\Varid{n})\mathbin{*}(\Varid{s}\;\Varid{n})){}\<[E]%
-\\[\blanklineskip]%
+\ColumnHook
+\end{hscode}\resethooks
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{s}\;\mathrm{0}\mathrel{=}\mathrm{1}{}\<[E]%
 \\
 \>[B]{}\Varid{s}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}(\Varid{s}\;\Varid{n})\mathbin{+}\mathrm{1}{}\<[E]%
-\\[\blanklineskip]%
+\ColumnHook
+\end{hscode}\resethooks
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{p}\;\mathrm{0}\mathrel{=}\mathrm{2}{}\<[E]%
 \\
 \>[B]{}\Varid{p}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}(\Varid{p}\;\Varid{n})\mathbin{+}\mathrm{1}{}\<[E]%
-\\[\blanklineskip]%
+\ColumnHook
+\end{hscode}\resethooks
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{loop}\;(\Varid{h},\Varid{s},\Varid{p})\mathrel{=}((((\mathrm{2}\mathbin{*}\Varid{s})\mathbin{*}((\mathrm{2}\mathbin{*}\Varid{s})\mathbin{-}\mathrm{1}))\mathbin{*}\Varid{h})\mathbin{\Varid{`div`}}(\Varid{p}\mathbin{*}\Varid{s}),\Varid{s}\mathbin{+}\mathrm{1},\Varid{p}\mathbin{+}\mathrm{1}){}\<[E]%
 \\
 \>[B]{}\Varid{inic}\mathrel{=}(\mathrm{1},\mathrm{1},\mathrm{2}){}\<[E]%
@@ -1861,14 +1853,20 @@ Solução para listas não vazias:
 \ColumnHook
 \end{hscode}\resethooks
 Para este problema deduzimos através de várias leis do formulário, de salientar a utilização da lei da recursividade, o gene do \(avg\) que juntamente com o
-gene do \(length\) permitiu-nos descobrir o \(avgAUX\). Utilizamos uma função auxiliar para realizar a divisão inteira.
+gene do \(length\) permitiu-nos descobrir o \(avgAUX\). Utilizámos uma função auxiliar para realizar a divisão inteira.
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{avgB}\mathrel{=}\Varid{cataList}\;\alt{\conj{\conj{\Varid{zero}}{\Varid{zero}}}{\Varid{zero}}}{\conj{\conj{\Varid{add}\comp (\Varid{id}\times(\p1\comp \p1))}{\succ \comp \p2\comp \p1\comp \p2}}{\succ \comp \p2\comp \p2}}{}\<[E]%
+\>[B]{}\Varid{avgB}\mathrel{=}\Varid{cataList}\;\alt{\conj{\conj{\underline{\mathrm{0}}}{\underline{\mathrm{0}}}}{\underline{\mathrm{0}}}}{\conj{\conj{\Varid{addA}\comp (\Varid{id}\times(\p1\comp \p1))}{\succ \comp \p2\comp \p1\comp \p2}}{\succ \comp \p2\comp \p2}}{}\<[E]%
 \\
-\>[B]{}\Varid{divI}\;(\Varid{a},\Varid{b})\mathrel{=}(\Varid{fromIntegral}\;\Varid{a})\mathbin{/}(\Varid{fromIntegral}\;\Varid{b}){}\<[E]%
-\\[\blanklineskip]%
+\>[B]{}\Varid{divI}\;(\Varid{a},\Varid{b})\mathrel{=}\Varid{a}\mathbin{/}\Varid{b}{}\<[E]%
+\\
+\>[B]{}\Varid{addA}\;(\Varid{a},\Varid{b})\mathrel{=}\Varid{a}\mathbin{+}\Varid{b}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{avgAUX}\mathrel{=}(\Varid{divI}\times\Varid{id})\comp \Varid{avgB}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks

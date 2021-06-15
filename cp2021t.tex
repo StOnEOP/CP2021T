@@ -1042,7 +1042,7 @@ a menos de um erro de 0.1 milésimas:
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{4}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{prop\char95 avg}\mathbin{::}\Conid{Ord}\;\Varid{a}\Rightarrow [\mskip1.5mu \Varid{a}\mskip1.5mu]\to \Conid{Property}{}\<[E]%
+\>[B]{}\mbox{\onelinecomment prop_avg :: Ord a => [a] -> Property}{}\<[E]%
 \\
 \>[B]{}\Varid{prop\char95 avg}\mathrel{=}\Varid{nonempty}\Rightarrow\Varid{diff}\leq\underline{\mathrm{0.000001}}\;\mathbf{where}{}\<[E]%
 \\
@@ -1719,10 +1719,15 @@ Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da de
 ---
 
 \subsubsection*{5.}
-
+Já para o gene do catamorfismo da função ad, utilizamos as regras de derivação tendo em atenção que no produto e no expoente, temos de calcular a derivada da
+\(ExpAr\) para pudermos realizar o cálculo final. Esse cálculo auxiliar é feito pela função \(calculaR\).
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{5}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{35}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{37}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{43}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{45}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{61}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{69}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{73}{@{}>{\hspre}l<{\hspost}@{}}%
@@ -1744,7 +1749,7 @@ Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da de
 \>[81]{}\to (\Conid{Bin}\;\Conid{Sum}\;\Varid{b1}\;\Varid{c1},\Varid{b2}\mathbin{+}\Varid{c2}){}\<[E]%
 \\
 \>[B]{}\hsindent{73}{}\<[73]%
-\>[73]{}\Conid{Product}\to (\Conid{Bin}\;\Conid{Product}\;\Varid{b1}\;\Varid{c1},(\Varid{eval\char95 exp}\;\Varid{a}\;\Varid{b1})\mathbin{*}\Varid{c2}\mathbin{+}\Varid{b2}\mathbin{*}(\Varid{eval\char95 exp}\;\Varid{a}\;\Varid{c1})){}\<[E]%
+\>[73]{}\Conid{Product}\to (\Conid{Bin}\;\Conid{Product}\;\Varid{b1}\;\Varid{c1},(\Varid{calculaR}\;\Varid{a}\;\Varid{b1})\mathbin{*}\Varid{c2}\mathbin{+}\Varid{b2}\mathbin{*}(\Varid{calculaR}\;\Varid{a}\;\Varid{c1})){}\<[E]%
 \\
 \>[B]{}\Varid{ad\char95 gen}\;\Varid{a}\;(i_2\;(i_2\;(i_2\;(\Varid{op},(\Varid{b1},\Varid{b2})))))\mathrel{=}\mathbf{case}\;\Varid{op}\;\mathbf{of}{}\<[E]%
 \\
@@ -1754,44 +1759,58 @@ Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da de
 \\
 \>[B]{}\hsindent{61}{}\<[61]%
 \>[61]{}\Conid{E}{}\<[69]%
-\>[69]{}\to (\Conid{Un}\;\Conid{E}\;\Varid{b1},(\Varid{eval\char95 exp}\;\Varid{a}\;\Varid{b1})\mathbin{*}\Varid{b2}){}\<[E]%
+\>[69]{}\to (\Conid{Un}\;\Conid{E}\;\Varid{b1},\Varid{expd}\;(\Varid{calculaR}\;\Varid{a}\;\Varid{b1})\mathbin{*}\Varid{b2}){}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{calculaR}\mathbin{::}\Conid{Floating}\;\Varid{a}\Rightarrow \Varid{a}\to \Conid{ExpAr}\;\Varid{a}\to \Varid{a}{}\<[E]%
+\\
+\>[B]{}\Varid{calculaR}\;\Varid{a}\;\Conid{X}\mathrel{=}\Varid{a}{}\<[E]%
+\\
+\>[B]{}\Varid{calculaR}\;\Varid{a}\;(\Conid{N}\;\Varid{b})\mathrel{=}\Varid{b}{}\<[E]%
+\\
+\>[B]{}\Varid{calculaR}\;\Varid{a}\;(\Conid{Bin}\;\Varid{op}\;\Varid{b}\;\Varid{c})\mathrel{=}\mathbf{case}\;\Varid{op}\;\mathbf{of}{}\<[E]%
+\\
+\>[B]{}\hsindent{37}{}\<[37]%
+\>[37]{}\Conid{Sum}{}\<[45]%
+\>[45]{}\to (\Varid{calculaR}\;\Varid{a}\;\Varid{b})\mathbin{+}(\Varid{calculaR}\;\Varid{a}\;\Varid{c}){}\<[E]%
+\\
+\>[B]{}\hsindent{37}{}\<[37]%
+\>[37]{}\Conid{Product}\to (\Varid{calculaR}\;\Varid{a}\;\Varid{b})\mathbin{*}(\Varid{calculaR}\;\Varid{a}\;\Varid{c}){}\<[E]%
+\\
+\>[B]{}\Varid{calculaR}\;\Varid{a}\;(\Conid{Un}\;\Varid{op}\;\Varid{b})\mathrel{=}\mathbf{case}\;\Varid{op}\;\mathbf{of}{}\<[E]%
+\\
+\>[B]{}\hsindent{35}{}\<[35]%
+\>[35]{}\Conid{Negate}{}\<[43]%
+\>[43]{}\to \mathbin{-}(\Varid{calculaR}\;\Varid{a}\;\Varid{b}){}\<[E]%
+\\
+\>[B]{}\hsindent{35}{}\<[35]%
+\>[35]{}\Conid{E}{}\<[43]%
+\>[43]{}\to \Varid{expd}\;(\Varid{calculaR}\;\Varid{a}\;\Varid{b}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 
 \subsection*{Problema 2}
-Definir
+Através da fórmula da série de Catalan, percebemos que o maior problema era conseguir realizar o fatorial para o numerador, pois o 'n' é multiplicado por 2.
+A solução que arranjamos foi calcular o fatorial para o número 'n' e 'n-1' na mesma divisão inteira.
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{c}\;\mathrm{0}\mathrel{=}\mathrm{1}{}\<[E]%
+\>[B]{}\Varid{h}\;\mathrm{0}\mathrel{=}\mathrm{1}{}\<[E]%
 \\
-\>[B]{}\Varid{c}\;\Varid{n}\mathrel{=}\Varid{numA}\;(\mathrm{2}\mathbin{*}(\Varid{s}\;\Varid{n}))\mathbin{\Varid{`div`}}(\Varid{numB}\;(\Varid{s}\;\Varid{n})){}\<[E]%
+\>[B]{}\Varid{h}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}(((\mathrm{2}\mathbin{*}(\Varid{s}\;\Varid{n}))\mathbin{*}((\mathrm{2}\mathbin{*}(\Varid{s}\;\Varid{n}))\mathbin{-}\mathrm{1}))\mathbin{*}(\Varid{h}\;\Varid{n}))\mathbin{\Varid{`div`}}((\Varid{p}\;\Varid{n})\mathbin{*}(\Varid{s}\;\Varid{n})){}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{numA}\;\mathrm{0}\mathrel{=}\mathrm{1}{}\<[E]%
-\\
-\>[B]{}\Varid{numA}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}\Varid{n}\mathbin{*}(\Varid{numA}\;\Varid{n}){}\<[E]%
-\\[\blanklineskip]%
-\>[B]{}\Varid{numB}\;\mathrm{0}\mathrel{=}\mathrm{1}{}\<[E]%
-\\
-\>[B]{}\Varid{numB}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}\Varid{n}\mathbin{*}(\Varid{n}\mathbin{-}\mathrm{1})\mathbin{*}(\Varid{numB}\;\Varid{n}){}\<[E]%
-\\[\blanklineskip]%
-\>[B]{}\mbox{\onelinecomment h 0 = 1}{}\<[E]%
-\\
-\>[B]{}\mbox{\onelinecomment h (n+1) = (h n) * (2*(s n))`div`((s (n+1))*(s n)))}{}\<[E]%
-\\[\blanklineskip]%
-\>[B]{}\mbox{\onelinecomment h 0 = 1}{}\<[E]%
-\\
-\>[B]{}\mbox{\onelinecomment h (n+1) = (h n) * (2*(s n))`div`((s (n+1))*(s n)) * (2*(s n)-1)`div`((s n)*(s (n-1)))}{}\<[E]%
-\\[\blanklineskip]%
-\>[B]{}\Varid{s}\;\mathrm{0}\mathrel{=}\mathrm{2}{}\<[E]%
+\>[B]{}\Varid{s}\;\mathrm{0}\mathrel{=}\mathrm{1}{}\<[E]%
 \\
 \>[B]{}\Varid{s}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}(\Varid{s}\;\Varid{n})\mathbin{+}\mathrm{1}{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{loop}\;(\Varid{c},\Varid{numA},\Varid{numB},\Varid{s})\mathrel{=}(\Varid{numA}\;(\mathrm{2}\mathbin{*}\Varid{s})\mathbin{\Varid{`div`}}\Varid{numB}\;(\Varid{s}),\Varid{numA},\Varid{numB},\Varid{s}\mathbin{+}\mathrm{1}){}\<[E]%
+\>[B]{}\Varid{p}\;\mathrm{0}\mathrel{=}\mathrm{2}{}\<[E]%
 \\
-\>[B]{}\Varid{inic}\mathrel{=}(\mathrm{1},\mathrm{1},\mathrm{1},\mathrm{2}){}\<[E]%
+\>[B]{}\Varid{p}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}(\Varid{p}\;\Varid{n})\mathbin{+}\mathrm{1}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{loop}\;(\Varid{h},\Varid{s},\Varid{p})\mathrel{=}((((\mathrm{2}\mathbin{*}\Varid{s})\mathbin{*}((\mathrm{2}\mathbin{*}\Varid{s})\mathbin{-}\mathrm{1}))\mathbin{*}\Varid{h})\mathbin{\Varid{`div`}}(\Varid{p}\mathbin{*}\Varid{s}),\Varid{s}\mathbin{+}\mathrm{1},\Varid{p}\mathbin{+}\mathrm{1}){}\<[E]%
 \\
-\>[B]{}\Varid{prj}\;(\Varid{c},\Varid{numA},\Varid{numB},\Varid{s})\mathrel{=}\Varid{c}{}\<[E]%
+\>[B]{}\Varid{inic}\mathrel{=}(\mathrm{1},\mathrm{1},\mathrm{2}){}\<[E]%
+\\
+\>[B]{}\Varid{prj}\;(\Varid{h},\Varid{s},\Varid{p})\mathrel{=}\Varid{h}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 por forma a que
@@ -1833,21 +1852,27 @@ Apresentar de seguida a justificação da solução encontrada.
 \end{hscode}\resethooks
 
 \subsection*{Problema 4}
-
+\subsubsection*{1.}
 Solução para listas não vazias:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{avg}\mathrel{=}\p1\comp \Varid{avg\char95 aux}{}\<[E]%
+\>[B]{}\Varid{avg}\mathrel{=}\p1\comp \Varid{avgAUX}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
-
+Para este problema deduzimos através de várias leis do formulário, de salientar a utilização da lei da recursividade, o gene do \(avg\) que juntamente com o
+gene do \(length\) permitiu-nos descobrir o \(avgAUX\). Utilizamos uma função auxiliar para realizar a divisão inteira.
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{avg\char95 aux}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{avgB}\mathrel{=}\Varid{cataList}\;\alt{\conj{\conj{\Varid{zero}}{\Varid{zero}}}{\Varid{zero}}}{\conj{\conj{\Varid{add}\comp (\Varid{id}\times(\p1\comp \p1))}{\succ \comp \p2\comp \p1\comp \p2}}{\succ \comp \p2\comp \p2}}{}\<[E]%
+\\
+\>[B]{}\Varid{divI}\;(\Varid{a},\Varid{b})\mathrel{=}(\Varid{fromIntegral}\;\Varid{a})\mathbin{/}(\Varid{fromIntegral}\;\Varid{b}){}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{avgAUX}\mathrel{=}(\Varid{divI}\times\Varid{id})\comp \Varid{avgB}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
+\subsubsection*{2.}
 Solução para árvores de tipo \LTree:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%

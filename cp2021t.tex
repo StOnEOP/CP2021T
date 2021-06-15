@@ -305,15 +305,15 @@
 
 \begin{center}\large
 \begin{tabular}{ll}
-\textbf{Grupo} nr. & 999 (preencher)
+\textbf{Grupo} nr. & 120
 \\\hline
-a11111 & Nome1 (preencher)	
+a72620 & Mário Jorge Dias Real
 \\
-a22222 & Nome2 (preencher)	
+a82263 & Moisés Araújo Antunes
 \\
-a33333 & Nome3 (preencher)	
+a87958 & André Filipe Gomes Silva
 \\
-a44444 & Nome4 (preencher, se aplicável, ou apagar)	
+a87972 & João Miguel Pinto Nunes
 \end{tabular}
 \end{center}
 
@@ -371,9 +371,9 @@ o ``kit'' básico, escrito em \Haskell, para realizar o trabalho. Basta executar
 \noindent Abra o ficheiro \texttt{cp2021t.lhs} no seu editor de texto preferido
 e verifique que assim é: todo o texto que se encontra dentro do ambiente
 \begin{quote}\small\tt
-\text{\tt \char92{}begin\char123{}code\char125{}}
+\text{\ttfamily \char92{}begin\char123{}code\char125{}}
 \\ ... \\
-\text{\tt \char92{}end\char123{}code\char125{}}
+\text{\ttfamily \char92{}end\char123{}code\char125{}}
 \end{quote}
 é seleccionado pelo \GHCi\ para ser executado.
 
@@ -405,15 +405,15 @@ geração de gráficos 2D:
     $ cabal install QuickCheck gloss --lib
 \end{Verbatim}
 Para testar uma propriedade \QuickCheck~\ensuremath{\Varid{prop}}, basta invocá-la com o comando:
-\begin{tabbing}\tt
+\begin{tabbing}\ttfamily
 ~~~~~\char62{}~quickCheck~prop\\
-\tt ~~~~~\char43{}\char43{}\char43{}~OK\char44{}~passed~100~tests\char46{}
+\ttfamily ~~~~~\char43{}\char43{}\char43{}~OK\char44{}~passed~100~tests\char46{}
 \end{tabbing}
 Pode-se ainda controlar o número de casos de teste e sua complexidade,
 como o seguinte exemplo mostra:
-\begin{tabbing}\tt
+\begin{tabbing}\ttfamily
 ~~~~~\char62{}~quickCheckWith~stdArgs~\char123{}~maxSuccess~\char61{}~200\char44{}~maxSize~\char61{}~10~\char125{}~prop\\
-\tt ~~~~~\char43{}\char43{}\char43{}~OK\char44{}~passed~200~tests\char46{}
+\ttfamily ~~~~~\char43{}\char43{}\char43{}~OK\char44{}~passed~200~tests\char46{}
 \end{tabbing}
 Qualquer programador tem, na vida real, de ler e analisar (muito!) código
 escrito por outros. No anexo \ref{sec:codigo} disponibiliza-se algum
@@ -432,7 +432,7 @@ Um projeto criado com o Stack possui uma estrutura de pastas muito específica:
 \end{itemize}
 
 Pode aceder ao \GHCi\ utilizando o comando:
-\begin{tabbing}\tt
+\begin{tabbing}\ttfamily
 ~stack~ghci
 \end{tabbing}
 
@@ -1042,6 +1042,8 @@ a menos de um erro de 0.1 milésimas:
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{4}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{prop\char95 avg}\mathbin{::}\Conid{Ord}\;\Varid{a}\Rightarrow [\mskip1.5mu \Varid{a}\mskip1.5mu]\to \Conid{Property}{}\<[E]%
+\\
 \>[B]{}\Varid{prop\char95 avg}\mathrel{=}\Varid{nonempty}\Rightarrow\Varid{diff}\leq\underline{\mathrm{0.000001}}\;\mathbf{where}{}\<[E]%
 \\
 \>[B]{}\hsindent{4}{}\<[4]%
@@ -1059,9 +1061,9 @@ a menos de um erro de 0.1 milésimas:
 \Problema	(\textbf{NB}: Esta questão é \textbf{opcional} e funciona como \textbf{valorização} apenas para os alunos que desejarem fazê-la.) 
 
 \vskip 1em \noindent
-Existem muitas linguagens funcionais para além do \Haskell, que é a linguagem usada neste trabalho prático. Uma delas é o \Fsharp\ da Microsoft. Na directoria \text{\tt fsharp} encontram-se os módulos \Cp, \Nat\ e \LTree\ codificados em \Fsharp. O que se pede é a biblioteca \BTree\ escrita na mesma linguagem.
+Existem muitas linguagens funcionais para além do \Haskell, que é a linguagem usada neste trabalho prático. Uma delas é o \Fsharp\ da Microsoft. Na directoria \text{\ttfamily fsharp} encontram-se os módulos \Cp, \Nat\ e \LTree\ codificados em \Fsharp. O que se pede é a biblioteca \BTree\ escrita na mesma linguagem.
 
-Modo de execução: o código que tiverem produzido nesta pergunta deve ser colocado entre o \text{\tt \char92{}begin\char123{}verbatim\char125{}} e o \text{\tt \char92{}end\char123{}verbatim\char125{}} da correspondente parte do anexo \ref{sec:resolucao}. Para além disso, os grupos podem demonstrar o código na oral.
+Modo de execução: o código que tiverem produzido nesta pergunta deve ser colocado entre o \text{\ttfamily \char92{}begin\char123{}verbatim\char125{}} e o \text{\ttfamily \char92{}end\char123{}verbatim\char125{}} da correspondente parte do anexo \ref{sec:resolucao}. Para além disso, os grupos podem demonstrar o código na oral.
 
 \newpage
 
@@ -1397,7 +1399,7 @@ Propriedades e \emph{main}:
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{runBezier}\mathbin{::}\fun{IO}\;(){}\<[E]%
 \\
-\>[B]{}\Varid{runBezier}\mathrel{=}\Varid{play}\;(\Conid{InWindow}\;\text{\tt \char34 Bézier\char34}\;(\mathrm{600},\mathrm{600})\;(\mathrm{0},{}\<[53]%
+\>[B]{}\Varid{runBezier}\mathrel{=}\Varid{play}\;(\Conid{InWindow}\;\text{\ttfamily \char34 Bézier\char34}\;(\mathrm{600},\mathrm{600})\;(\mathrm{0},{}\<[53]%
 \>[53]{}\mathrm{0})){}\<[E]%
 \\
 \>[B]{}\hsindent{3}{}\<[3]%
@@ -1417,7 +1419,7 @@ envolvendo \gloss{Gloss}. Nesse caso, o teste em causa deve fazer parte de uma f
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{main}\mathrel{=}\Varid{runBezier}{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{run}\mathrel{=}\mathbf{do}\;\{\mskip1.5mu \Varid{system}\;\text{\tt \char34 ghc~cp2021t\char34};\Varid{system}\;\text{\tt \char34 ./cp2021t\char34}\mskip1.5mu\}{}\<[E]%
+\>[B]{}\Varid{run}\mathrel{=}\mathbf{do}\;\{\mskip1.5mu \Varid{system}\;\text{\ttfamily \char34 ghc~cp2021t\char34};\Varid{system}\;\text{\ttfamily \char34 ./cp2021t\char34}\mskip1.5mu\}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 
@@ -1552,47 +1554,207 @@ São dadas:
 \ColumnHook
 \end{hscode}\resethooks
 Definir:
+---
+
+\subsubsection*{1.}
+Para obtermos o \(outExpAr\), partimos da expressão \(outExpAr \cdot inExpAr = id\) e com a ajuda das leis disponíveis no formulário chegamos rapidamente à solução.
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{outExpAr}\;\Conid{X}\mathrel{=}i_1\;(){}\<[E]%
+\\
+\>[B]{}\Varid{outExpAr}\;(\Conid{N}\;\Varid{a})\mathrel{=}i_2\;(i_1\;\Varid{a}){}\<[E]%
+\\
+\>[B]{}\Varid{outExpAr}\;(\Conid{Bin}\;\Varid{a}\;\Varid{b}\;\Varid{c})\mathrel{=}i_2\;(i_2\;(i_1\;(\Varid{a},(\Varid{b},\Varid{c})))){}\<[E]%
+\\
+\>[B]{}\Varid{outExpAr}\;(\Conid{Un}\;\Varid{a}\;\Varid{b})\mathrel{=}i_2\;(i_2\;(i_2\;(\Varid{a},\Varid{b}))){}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+\begin{eqnarray*}
+  \xymatrix@C=2cm {
+    \ensuremath{\Conid{ExpAr}} \ar\text{\ttfamily \char47{}\char95{}1pc\char47{}\char91{}r\char93{}\char95{}\char45{}\char123{}outExpAr\char125{}~~~~~\char38{}\char124{}X~\char43{}~\char40{}N~\char43{}~\char40{}BinOp~\char92{}times~\char40{}ExpAr~\char92{}times~ExpAr\char41{}~\char43{}~UnOp~\char92{}times~ExpAr\char41{}\char41{}\char124{}~\char92{}ar}/_1pc/[l]_-{inExpAr}
+  }
+\end{eqnarray*}
+--
+Já para o \(recExpAr\), guiamos-nos pela expressão dada no enunciado, \(baseExpAr\).
 
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{outExpAr}\mathrel{=}\bot {}\<[E]%
-\\
-\>[B]{}\mbox{\onelinecomment }{}\<[E]%
-\\
-\>[B]{}\Varid{recExpAr}\mathrel{=}\bot {}\<[E]%
-\\
-\>[B]{}\mbox{\onelinecomment }{}\<[E]%
-\\
-\>[B]{}\Varid{g\char95 eval\char95 exp}\mathrel{=}\bot {}\<[E]%
-\\
-\>[B]{}\mbox{\onelinecomment }{}\<[E]%
-\\
-\>[B]{}\Varid{clean}\mathrel{=}\bot {}\<[E]%
-\\
-\>[B]{}\mbox{\onelinecomment }{}\<[E]%
-\\
-\>[B]{}\Varid{gopt}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{recExpAr}\;\Varid{f}\mathrel{=}\Varid{id}+(\Varid{id}+(\Varid{id}\times(\Varid{f}\times\Varid{f})+\Varid{id}\times\Varid{f})){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
+---
 
+\subsubsection*{2.}
+Para definirmos o gene do catamorfismo, detetamos qual a \(ExpAr\) dada e calculamos o resultado.
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{55}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{61}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{63}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{69}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{g\char95 eval\char95 exp}\;\Varid{a}\;(i_1\;())\mathrel{=}\Varid{a}{}\<[E]%
+\\
+\>[B]{}\Varid{g\char95 eval\char95 exp}\;\Varid{a}\;(i_2\;(i_1\;\Varid{n}))\mathrel{=}\Varid{n}{}\<[E]%
+\\
+\>[B]{}\Varid{g\char95 eval\char95 exp}\;\Varid{a}\;(i_2\;(i_2\;(i_1\;(\Varid{op},(\Varid{b},\Varid{c})))))\mathrel{=}\mathbf{case}\;\Varid{op}\;\mathbf{of}{}\<[E]%
+\\
+\>[B]{}\hsindent{61}{}\<[61]%
+\>[61]{}\Conid{Sum}{}\<[69]%
+\>[69]{}\to \Varid{b}\mathbin{+}\Varid{c}{}\<[E]%
+\\
+\>[B]{}\hsindent{61}{}\<[61]%
+\>[61]{}\Conid{Product}\to \Varid{b}\mathbin{*}\Varid{c}{}\<[E]%
+\\
+\>[B]{}\Varid{g\char95 eval\char95 exp}\;\Varid{a}\;(i_2\;(i_2\;(i_2\;(\Varid{op},\Varid{b}))))\mathrel{=}\mathbf{case}\;\Varid{op}\;\mathbf{of}{}\<[E]%
+\\
+\>[B]{}\hsindent{55}{}\<[55]%
+\>[55]{}\Conid{Negate}{}\<[63]%
+\>[63]{}\to \mathbin{-}\Varid{b}{}\<[E]%
+\\
+\>[B]{}\hsindent{55}{}\<[55]%
+\>[55]{}\Conid{E}{}\<[63]%
+\>[63]{}\to \Varid{expd}\;(\Varid{b}){}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+\begin{eqnarray*}
+\xymatrix@C=2cm{
+    \ensuremath{\Conid{ExpAr}}  \ar[d]_-{\ensuremath{\mathrel{=}\Varid{evalExp}\mathrel{=}\cata{\Varid{g\char95 eval\char95 exp}}}} \ar[r]^-{\ensuremath{\Varid{outExpAr}}}
+    &\ensuremath{\Conid{X}\mathbin{+}(\Conid{N}\mathbin{+}(\Conid{BinOp}\lambda \Varid{times}\;(\Conid{ExpAr}\lambda \Varid{times}\;\Conid{ExpAr})\mathbin{+}\Conid{UnOp}\lambda \Varid{times}\;\Conid{ExpAr}))} 
+        \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}(\Varid{id}\mathbin{+}(\Varid{id}\lambda \Varid{times}\;(\cata{\Varid{g\char95 eval\char95 exp}}\lambda \Varid{times}\;\cata{\cdot }\;\Varid{g\char95 eval\char95 exp})\mathbin{+}\Varid{id}\lambda \Varid{times}\;\cata{\cdot }\;\Varid{g\char95 eval\char95 exp}))}}   \\
+    \ensuremath{\Conid{A}}
+    &\ensuremath{\Conid{X}\mathbin{+}(\Conid{N}\mathbin{+}(\Conid{BinOp}\lambda \Varid{times}\;(\Conid{A}\lambda \Varid{times}\;\Conid{A})\mathbin{+}\Conid{UnOp}\lambda \Varid{times}\;\Conid{A}))}   \ar[l]^-{\ensuremath{\Varid{g\char95 eval\char95 exp}}}
+}
+\end{eqnarray*}
+---
+
+\subsubsection*{3.}
+O \(gopt\) é definido como um catamorfismo com o objetivo de apenas calcular o resultado, utilizamos então o gene do catamorfismo da alínea anterior.
+Já para o anamorfismo \(clean\), aplicamos todas as regras possíveis de simplificação de expressões aritméticas (elementos absorventes e neutros).
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{clean}\;\Conid{X}\mathrel{=}i_1\;(){}\<[E]%
+\\
+\>[B]{}\Varid{clean}\;(\Conid{N}\;\Varid{a})\mathrel{=}i_2\;(i_1\;\Varid{a}){}\<[E]%
+\\
+\>[B]{}\mbox{\onelinecomment  Soma}{}\<[E]%
+\\
+\>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Sum}\;(\Conid{N}\;\mathrm{0})\;\Varid{c})\mathrel{=}\Varid{clean}\;\Varid{c}{}\<[E]%
+\\
+\>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Sum}\;\Varid{b}\;(\Conid{N}\;\mathrm{0}))\mathrel{=}\Varid{clean}\;\Varid{b}{}\<[E]%
+\\
+\>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Sum}\;\Varid{b}\;\Varid{c})\mathrel{=}i_2\;(i_2\;(i_1\;(\Conid{Sum},(\Varid{b},\Varid{c})))){}\<[E]%
+\\
+\>[B]{}\mbox{\onelinecomment  Produto}{}\<[E]%
+\\
+\>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Product}\;(\Conid{N}\;\mathrm{1})\;\Varid{c})\mathrel{=}\Varid{clean}\;\Varid{c}{}\<[E]%
+\\
+\>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Product}\;\Varid{b}\;(\Conid{N}\;\mathrm{1}))\mathrel{=}\Varid{clean}\;\Varid{b}{}\<[E]%
+\\
+\>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Product}\;(\Conid{N}\;\mathrm{0})\;\Varid{c})\mathrel{=}i_2\;(i_1\;\mathrm{0}){}\<[E]%
+\\
+\>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Product}\;\Varid{b}\;(\Conid{N}\;\mathrm{0}))\mathrel{=}i_2\;(i_1\;\mathrm{0}){}\<[E]%
+\\
+\>[B]{}\Varid{clean}\;(\Conid{Bin}\;\Conid{Product}\;\Varid{b}\;\Varid{c})\mathrel{=}i_2\;(i_2\;(i_1\;(\Conid{Product},(\Varid{b},\Varid{c})))){}\<[E]%
+\\
+\>[B]{}\mbox{\onelinecomment  Negação}{}\<[E]%
+\\
+\>[B]{}\Varid{clean}\;(\Conid{Un}\;\Conid{Negate}\;\Varid{b})\mathrel{=}i_2\;(i_2\;(i_2\;(\Conid{Negate},\Varid{b}))){}\<[E]%
+\\
+\>[B]{}\mbox{\onelinecomment  Expoente}{}\<[E]%
+\\
+\>[B]{}\Varid{clean}\;(\Conid{Un}\;\Conid{E}\;(\Conid{N}\;\mathrm{0}))\mathrel{=}i_2\;(i_1\;\mathrm{1}){}\<[E]%
+\\
+\>[B]{}\Varid{clean}\;(\Conid{Un}\;\Conid{E}\;\Varid{b})\mathrel{=}i_2\;(i_2\;(i_2\;(\Conid{E},\Varid{b}))){}\<[E]%
+\\
+\>[B]{}\mbox{\onelinecomment }{}\<[E]%
+\\
+\>[B]{}\Varid{gopt}\;\Varid{a}\mathrel{=}\Varid{g\char95 eval\char95 exp}\;\Varid{a}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+---
+
+\subsubsection*{4.}
+Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da derivação para devolvermos a \(ExpAr\) derivada.
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{5}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{53}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{61}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{69}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{77}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{sd\char95 gen}\mathbin{::}\Conid{Floating}\;\Varid{a}\Rightarrow {}\<[E]%
 \\
 \>[B]{}\hsindent{5}{}\<[5]%
 \>[5]{}()+(\Varid{a}+((\Conid{BinOp},((\Conid{ExpAr}\;\Varid{a},\Conid{ExpAr}\;\Varid{a}),(\Conid{ExpAr}\;\Varid{a},\Conid{ExpAr}\;\Varid{a})))+(\Conid{UnOp},(\Conid{ExpAr}\;\Varid{a},\Conid{ExpAr}\;\Varid{a}))))\to (\Conid{ExpAr}\;\Varid{a},\Conid{ExpAr}\;\Varid{a}){}\<[E]%
 \\
-\>[B]{}\Varid{sd\char95 gen}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{sd\char95 gen}\;(i_1\;())\mathrel{=}(\Conid{X},\Conid{N}\;\mathrm{1}){}\<[E]%
+\\
+\>[B]{}\Varid{sd\char95 gen}\;(i_2\;(i_1\;\Varid{n}))\mathrel{=}(\Conid{N}\;\Varid{n},\Conid{N}\;\mathrm{0}){}\<[E]%
+\\
+\>[B]{}\Varid{sd\char95 gen}\;(i_2\;(i_2\;(i_1\;(\Varid{op},((\Varid{b1},\Varid{b2}),(\Varid{c1},\Varid{c2}))))))\mathrel{=}\mathbf{case}\;\Varid{op}\;\mathbf{of}{}\<[E]%
+\\
+\>[B]{}\hsindent{69}{}\<[69]%
+\>[69]{}\Conid{Sum}{}\<[77]%
+\>[77]{}\to (\Conid{Bin}\;\Conid{Sum}\;\Varid{b1}\;\Varid{c1},\Conid{Bin}\;\Conid{Sum}\;\Varid{b2}\;\Varid{c2}){}\<[E]%
+\\
+\>[B]{}\hsindent{69}{}\<[69]%
+\>[69]{}\Conid{Product}\to (\Conid{Bin}\;\Conid{Product}\;\Varid{b1}\;\Varid{c1},\Conid{Bin}\;\Conid{Sum}\;(\Conid{Bin}\;\Conid{Product}\;\Varid{b1}\;\Varid{c2})\;(\Conid{Bin}\;\Conid{Product}\;\Varid{b2}\;\Varid{c1})){}\<[E]%
+\\
+\>[B]{}\Varid{sd\char95 gen}\;(i_2\;(i_2\;(i_2\;(\Varid{op},(\Varid{b1},\Varid{b2})))))\mathrel{=}\mathbf{case}\;\Varid{op}\;\mathbf{of}{}\<[E]%
+\\
+\>[B]{}\hsindent{53}{}\<[53]%
+\>[53]{}\Conid{Negate}{}\<[61]%
+\>[61]{}\to (\Conid{Un}\;\Conid{Negate}\;\Varid{b1},\Conid{Un}\;\Conid{Negate}\;\Varid{b2}){}\<[E]%
+\\
+\>[B]{}\hsindent{53}{}\<[53]%
+\>[53]{}\Conid{E}{}\<[61]%
+\>[61]{}\to (\Conid{Un}\;\Conid{E}\;\Varid{b1},\Conid{Bin}\;\Conid{Product}\;(\Conid{Un}\;\Conid{E}\;\Varid{b1})\;\Varid{b2}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
+---
+
+\subsubsection*{5.}
 
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{5}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{61}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{69}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{73}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{81}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{ad\char95 gen}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{ad\char95 gen}\mathbin{::}\Conid{Floating}\;\Varid{a}\Rightarrow \Varid{a}\to {}\<[E]%
+\\
+\>[B]{}\hsindent{5}{}\<[5]%
+\>[5]{}()+(\Varid{a}+((\Conid{BinOp},((\Conid{ExpAr}\;\Varid{a},\Varid{a}),(\Conid{ExpAr}\;\Varid{a},\Varid{a})))+(\Conid{UnOp},(\Conid{ExpAr}\;\Varid{a},\Varid{a}))))\to (\Conid{ExpAr}\;\Varid{a},\Varid{a}){}\<[E]%
+\\
+\>[B]{}\Varid{ad\char95 gen}\;\Varid{a}\;(i_1\;())\mathrel{=}(\Conid{X},\mathrm{1}){}\<[E]%
+\\
+\>[B]{}\Varid{ad\char95 gen}\;\Varid{a}\;(i_2\;(i_1\;\Varid{n}))\mathrel{=}(\Conid{N}\;\Varid{n},\mathrm{0}){}\<[E]%
+\\
+\>[B]{}\Varid{ad\char95 gen}\;\Varid{a}\;(i_2\;(i_2\;(i_1\;(\Varid{op},((\Varid{b1},\Varid{b2}),(\Varid{c1},\Varid{c2}))))))\mathrel{=}\mathbf{case}\;\Varid{op}\;\mathbf{of}{}\<[E]%
+\\
+\>[B]{}\hsindent{73}{}\<[73]%
+\>[73]{}\Conid{Sum}{}\<[81]%
+\>[81]{}\to (\Conid{Bin}\;\Conid{Sum}\;\Varid{b1}\;\Varid{c1},\Varid{b2}\mathbin{+}\Varid{c2}){}\<[E]%
+\\
+\>[B]{}\hsindent{73}{}\<[73]%
+\>[73]{}\Conid{Product}\to (\Conid{Bin}\;\Conid{Product}\;\Varid{b1}\;\Varid{c1},(\Varid{eval\char95 exp}\;\Varid{a}\;\Varid{b1})\mathbin{*}\Varid{c2}\mathbin{+}\Varid{b2}\mathbin{*}(\Varid{eval\char95 exp}\;\Varid{a}\;\Varid{c1})){}\<[E]%
+\\
+\>[B]{}\Varid{ad\char95 gen}\;\Varid{a}\;(i_2\;(i_2\;(i_2\;(\Varid{op},(\Varid{b1},\Varid{b2})))))\mathrel{=}\mathbf{case}\;\Varid{op}\;\mathbf{of}{}\<[E]%
+\\
+\>[B]{}\hsindent{61}{}\<[61]%
+\>[61]{}\Conid{Negate}{}\<[69]%
+\>[69]{}\to (\Conid{Un}\;\Conid{Negate}\;\Varid{b1},\mathbin{-}\Varid{b2}){}\<[E]%
+\\
+\>[B]{}\hsindent{61}{}\<[61]%
+\>[61]{}\Conid{E}{}\<[69]%
+\>[69]{}\to (\Conid{Un}\;\Conid{E}\;\Varid{b1},(\Varid{eval\char95 exp}\;\Varid{a}\;\Varid{b1})\mathbin{*}\Varid{b2}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 
@@ -1601,11 +1763,35 @@ Definir
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{loop}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{c}\;\mathrm{0}\mathrel{=}\mathrm{1}{}\<[E]%
 \\
-\>[B]{}\Varid{inic}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{c}\;\Varid{n}\mathrel{=}\Varid{numA}\;(\mathrm{2}\mathbin{*}(\Varid{s}\;\Varid{n}))\mathbin{\Varid{`div`}}(\Varid{numB}\;(\Varid{s}\;\Varid{n})){}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{numA}\;\mathrm{0}\mathrel{=}\mathrm{1}{}\<[E]%
 \\
-\>[B]{}\Varid{prj}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{numA}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}\Varid{n}\mathbin{*}(\Varid{numA}\;\Varid{n}){}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{numB}\;\mathrm{0}\mathrel{=}\mathrm{1}{}\<[E]%
+\\
+\>[B]{}\Varid{numB}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}\Varid{n}\mathbin{*}(\Varid{n}\mathbin{-}\mathrm{1})\mathbin{*}(\Varid{numB}\;\Varid{n}){}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\mbox{\onelinecomment h 0 = 1}{}\<[E]%
+\\
+\>[B]{}\mbox{\onelinecomment h (n+1) = (h n) * (2*(s n))`div`((s (n+1))*(s n)))}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\mbox{\onelinecomment h 0 = 1}{}\<[E]%
+\\
+\>[B]{}\mbox{\onelinecomment h (n+1) = (h n) * (2*(s n))`div`((s (n+1))*(s n)) * (2*(s n)-1)`div`((s n)*(s (n-1)))}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{s}\;\mathrm{0}\mathrel{=}\mathrm{2}{}\<[E]%
+\\
+\>[B]{}\Varid{s}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}(\Varid{s}\;\Varid{n})\mathbin{+}\mathrm{1}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{loop}\;(\Varid{c},\Varid{numA},\Varid{numB},\Varid{s})\mathrel{=}(\Varid{numA}\;(\mathrm{2}\mathbin{*}\Varid{s})\mathbin{\Varid{`div`}}\Varid{numB}\;(\Varid{s}),\Varid{numA},\Varid{numB},\Varid{s}\mathbin{+}\mathrm{1}){}\<[E]%
+\\
+\>[B]{}\Varid{inic}\mathrel{=}(\mathrm{1},\mathrm{1},\mathrm{1},\mathrm{2}){}\<[E]%
+\\
+\>[B]{}\Varid{prj}\;(\Varid{c},\Varid{numA},\Varid{numB},\Varid{s})\mathrel{=}\Varid{c}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 por forma a que
@@ -1675,9 +1861,9 @@ Solução para árvores de tipo \LTree:
 \end{hscode}\resethooks
 
 \subsection*{Problema 5}
-Inserir em baixo o código \Fsharp\ desenvolvido, entre \text{\tt \char92{}begin\char123{}verbatim\char125{}} e \text{\tt \char92{}end\char123{}verbatim\char125{}}:
+Inserir em baixo o código \Fsharp\ desenvolvido, entre \text{\ttfamily \char92{}begin\char123{}verbatim\char125{}} e \text{\ttfamily \char92{}end\char123{}verbatim\char125{}}:
 
-\begin{tabbing}\tt
+\begin{tabbing}\ttfamily
 
 \end{tabbing}
 

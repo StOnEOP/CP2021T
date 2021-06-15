@@ -1016,15 +1016,33 @@ ad :: Floating a => a -> ExpAr a -> a
 ad v = p2 . cataExpAr (ad_gen v)
 \end{code}
 Definir:
+---
 
+\subsubsection*{1.}
+Para obtermos o \(outExpAr\), partimos da expressão \(outExpAr \cdot inExpAr = id\) e com a ajuda das leis disponíveis no formulário chegamos rapidamente à solução.
 \begin{code}
 outExpAr X = i1()
 outExpAr (N a) = i2(i1 a)
 outExpAr (Bin a b c) = i2(i2(i1(a, (b, c))))
 outExpAr (Un a b) = i2(i2(i2(a, b)))
----
+\end{code}
+\begin{eqnarray*}
+  \xymatrix@@C=2cm {
+    |ExpAr| \ar@/_1pc/[r]_-{outExpAr}
+    &|X + (N + (BinOp \times (ExpAr \times ExpAr) + UnOp \times ExpAr))| \ar@/_1pc/[l]_-{inExpAr}
+  }
+\end{eqnarray*}
+--
+Já para o \(recExpAr\), guiamos-nos pela expressão dada no enunciado, \(baseExpAr\).
+
+\begin{code}
 recExpAr f = id -|- (id -|- (id >< (f >< f) -|- id >< f))
+\end{code}
 ---
+
+\subsubsection*{2.}
+Para definirmos o gene do catamorfismo, detetamos qual a \(ExpAr\) dada e calculamos o resultado.
+\begin{code}
 g_eval_exp a (Left()) = a 
 g_eval_exp a (Right (Left n)) = n 
 g_eval_exp a (Right (Right (Left (op, (b, c))))) = case op of 
@@ -1033,7 +1051,22 @@ g_eval_exp a (Right (Right (Left (op, (b, c))))) = case op of
 g_eval_exp a (Right (Right (Right (op, b)))) = case op of 
                                                       Negate  -> -b
                                                       E       -> expd(b)
+\end{code}
+\begin{eqnarray*}
+\xymatrix@@C=2cm{
+    |ExpAr|  \ar[d]_-{| = evalExp = cataNat g_eval_exp|} \ar[r]^-{|outExpAr|}
+    &|X + (N + (BinOp \times (ExpAr \times ExpAr) + UnOp \times ExpAr))| 
+        \ar[d]^{|id + (id + (id \times (cataNat g_eval_exp \times cataNat g_eval_exp) + id \times cataNat g_eval_exp))|}   \\
+    |A|
+    &|X + (N + (BinOp \times (A \times A) + UnOp \times A))|   \ar[l]^-{|g_eval_exp|}
+}
+\end{eqnarray*}
 ---
+
+\subsubsection*{3.}
+O \(gopt\) é definido como um catamorfismo com o objetivo de apenas calcular o resultado, utilizamos então o gene do catamorfismo da alínea anterior.
+Já para o anamorfismo \(clean\), aplicamos todas as regras possíveis de simplificação de expressões aritméticas (elementos absorventes e neutros).
+\begin{code}
 clean X = i1()
 clean (N a) = i2(i1 a)
 -- Soma
@@ -1051,10 +1084,13 @@ clean (Un Negate b) = i2(i2(i2(Negate, b)))
 -- Expoente
 clean (Un E (N 0)) = i2(i1 1)
 clean (Un E b) = i2(i2(i2(E, b)))
----
+--
 gopt a = g_eval_exp a
 \end{code}
+---
 
+\subsubsection*{4.}
+Para definirmos o gene do catamorfismo pedido, apenas utilizamos as regras da derivação para devolvermos a \(ExpAr\) derivada.
 \begin{code}
 sd_gen :: Floating a =>
     Either () (Either a (Either (BinOp, ((ExpAr a, ExpAr a), (ExpAr a, ExpAr a))) (UnOp, (ExpAr a, ExpAr a)))) -> (ExpAr a, ExpAr a)
@@ -1067,46 +1103,47 @@ sd_gen (Right (Right (Right (op, (b1, b2))))) = case op of
                                                     Negate  -> (Un Negate b1, Un Negate b2)
                                                     E       -> (Un E b1, Bin Product (Un E b1) b2)
 \end{code}
+---
 
+\subsubsection*{5.}
 \begin{code}
 ad_gen :: Floating a => a ->
     Either () (Either a (Either (BinOp, ((ExpAr a, a), (ExpAr a, a))) (UnOp, (ExpAr a, a)))) -> (ExpAr a, a)
-ad_gen v (Left()) = (X, 1)
-ad_gen v (Right (Left n)) = (N n, 0)
-ad_gen v (Right (Right (Left (op, ((b1, b2), (c1, c2)))))) = case op of
+ad_gen a (Left()) = (X, 1)
+ad_gen a (Right (Left n)) = (N n, 0)
+ad_gen a (Right (Right (Left (op, ((b1, b2), (c1, c2)))))) = case op of
                                                                         Sum     -> (Bin Sum b1 c1, b2 + c2)
-                                                                        Product -> (Bin Product b1 c1, b2 * c2)
-ad_gen v (Right (Right (Right (op, (b1, b2))))) = case op of
+                                                                        Product -> (Bin Product b1 c1, (calculaR a b1)*c2 + b2*(calculaR a c1))
+ad_gen a (Right (Right (Right (op, (b1, b2))))) = case op of
                                                             Negate  -> (Un Negate b1, -b2)
-                                                            E       -> (Un E b1, expd(b2))
+                                                            E       -> (Un E b1, expd(calculaR a b1) * b2)
+
+calculaR :: Floating a => a -> ExpAr a -> a
+calculaR a X = a
+calculaR a (N b) = b
+calculaR a (Bin op b c) = case op of
+                                    Sum     -> (calculaR a b) + (calculaR a c)
+                                    Product -> (calculaR a b) * (calculaR a c)
+calculaR a (Un op b) = case op of
+                                  Negate  -> -(calculaR a b)
+                                  E       -> expd(calculaR a b)
 \end{code}
 
 \subsection*{Problema 2}
 Definir
 \begin{code}
-c 0 = 1
-c (n+1) = (c n) + (auxH n)
+h 0 = 1
+h (n+1) = ((( 2 * (s n)) * ((2 * (s n)) - 1)) * (h n)) `div` ((p n) * (s n))
 
---h 0 = 1
---h (n+1) = ((2*(s n))`div`((s (n+1))*(s n))) * (h n)
+s 0 = 1
+s (n+1) = (s n) + 1
 
-auxH 0 = 0
-auxH n = h (2*n+4,n+3,n+2)
+p 0 = 2
+p (n+1) = (p n) + 1
 
-h (1,1,1) = 1
---h (x+1,1,1) = (h (x,0,0)) * (p x)
---h (x+1,y+1,1) = (h (x,y,0)) * ((p x)`div`(p y))
-h (x+1,y+1,z+1) = (h ((p x),(p y),(p z))) * ((p x)`div`((p y)*(p z)))
-
-p 0 = 1
-p n = n
-
---s 0 = 2
---s (n+1) = (s n) + 1
-
-loop (c,auxH,h,p) = (c + auxH, h, h * ((p)`div`(p*p)), p + 1)
-inic = (1,0,1,1)
-prj (c,auxH,h,p) = c
+loop (h,s,p) = ((((2 * s) * ((2 * s)-1)) * h) `div` (p * s), s + 1, p + 1)
+inic = (1,1,2)
+prj (h,s,p) = h
 \end{code}
 por forma a que
 \begin{code}
@@ -1135,11 +1172,17 @@ hyloAlgForm = undefined
 
 Solução para listas não vazias:
 \begin{code}
-avg = p1.avg_aux
+--avg = p1.avg_aux
+avg l = undefined
 \end{code}
 
 \begin{code}
-avg_aux = undefined
+avg_aux l = (x `div` y, y)
+      where (x,y) = aux_a l
+
+aux_a [h] = (h,1)
+aux_a (h:t) = (h+x, y+1)
+      where (x,y) = aux_a t
 \end{code}
 Solução para árvores de tipo \LTree:
 \begin{code}

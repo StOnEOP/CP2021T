@@ -702,7 +702,7 @@ Verifique as suas funções testando a propriedade seguinte:
 A média de uma lista não vazia e de uma \LTree\ com os mesmos elementos coincide,
 a menos de um erro de 0.1 milésimas:
 \begin{code}
-prop_avg :: Ord a => [a] -> Property
+--prop_avg :: Ord a => [a] -> Property
 prop_avg = nonempty .==>. diff .<=. const 0.000001 where
    diff l = avg l - (avgLTree . genLTree) l
    genLTree = anaLTree lsplit
@@ -1106,6 +1106,8 @@ sd_gen (Right (Right (Right (op, (b1, b2))))) = case op of
 ---
 
 \subsubsection*{5.}
+Já para o gene do catamorfismo da função ad, utilizamos as regras de derivação tendo em atenção que no produto e no expoente, temos de calcular a derivada da
+\(ExpAr\) para pudermos realizar o cálculo final. Esse cálculo auxiliar é feito pela função \(calculaR\).
 \begin{code}
 ad_gen :: Floating a => a ->
     Either () (Either a (Either (BinOp, ((ExpAr a, a), (ExpAr a, a))) (UnOp, (ExpAr a, a)))) -> (ExpAr a, a)
@@ -1130,7 +1132,8 @@ calculaR a (Un op b) = case op of
 \end{code}
 
 \subsection*{Problema 2}
-Definir
+Através da fórmula da série de Catalan, percebemos que o maior problema era conseguir realizar o fatorial para o numerador, pois o 'n' é multiplicado por 2.
+A solução que arranjamos foi calcular o fatorial para o número 'n' e 'n-1' na mesma divisão inteira.
 \begin{code}
 h 0 = 1
 h (n+1) = ((( 2 * (s n)) * ((2 * (s n)) - 1)) * (h n)) `div` ((p n) * (s n))
@@ -1169,21 +1172,20 @@ hyloAlgForm = undefined
 \end{code}
 
 \subsection*{Problema 4}
-
+\subsubsection*{1.}
 Solução para listas não vazias:
 \begin{code}
---avg = p1.avg_aux
-avg l = undefined
+avg = p1.avgAUX
 \end{code}
-
+Para este problema deduzimos através de várias leis do formulário, de salientar a utilização da lei da recursividade, o gene do \(avg\) que juntamente com o
+gene do \(length\) permitiu-nos descobrir o \(avgAUX\). Utilizamos uma função auxiliar para realizar a divisão inteira.
 \begin{code}
-avg_aux l = (x `div` y, y)
-      where (x,y) = aux_a l
+avgB = cataList (either (split (split zero zero) zero) (split (split (add . (id >< (p1 . p1))) (succ . p2 . p1 . p2)) (succ . p2 . p2)))
+divI (a, b) = (fromIntegral a) / (fromIntegral b)
 
-aux_a [h] = (h,1)
-aux_a (h:t) = (h+x, y+1)
-      where (x,y) = aux_a t
+avgAUX = (divI >< id) . avgB
 \end{code}
+\subsubsection*{2.}
 Solução para árvores de tipo \LTree:
 \begin{code}
 avgLTree = p1.cataLTree gene where
